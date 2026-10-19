@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formula Explainer</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="src/taskpane.css" />
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="logo">fx</span><span>Formula Explainer</span></div>
+    <div class="tools">
+      <label class="switch" title="Tự phân tích khi chọn ô có công thức khác">
+        <input type="checkbox" id="chkAuto" /><span class="slider"></span><span class="swlabel">Tự động</span>
+      </label>
+      <button id="btnRefresh" class="primary" title="Phân tích ô đang chọn">⟳ Phân tích</button>
+    </div>
+  </header>
+  <div id="status" hidden></div>
+  <div id="loader"><div></div></div>
+
+  <section id="empty">
+    <div class="emptyIcon">ƒx</div>
+    <p id="emptyMsg">Chọn một ô có công thức rồi bấm <b>⟳ Phân tích</b>.</p>
+  </section>
+
+  <main id="main" hidden>
+    <section class="cell">
+      <div class="cellhead"><span class="addr" id="cellAddr"></span></div>
+      <div class="formula expr" id="formula"></div>
+      <div class="result" id="result"></div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab on" data-tab="tree">Các bước</button>
+      <button class="tab" data-tab="seq">Từng bước</button>
+      <button class="tab" data-tab="funcs">Hàm</button>
+    </nav>
+
+    <section class="pane" id="pane-tree">
+      <div class="panetools">
+        <span class="hint">Bấm vào dòng để mở/đóng · rê chuột vào tham chiếu để xem ô</span>
+        <span><button class="link" id="btnExpand">Mở hết</button> · <button class="link" id="btnCollapse">Thu gọn</button></span>
+      </div>
+      <div id="tree"></div>
+    </section>
+
+    <section class="pane" id="pane-seq" hidden>
+      <div class="seqnav">
+        <button id="btnFirst" title="Bước đầu">⏮</button>
+        <button id="btnPrev" title="Bước trước (←)">◀</button>
+        <span id="stepNo"></span>
+        <button id="btnNext" title="Bước sau (→)">▶</button>
+        <button id="btnLast" title="Bước cuối">⏭</button>
+      </div>
+      <div id="stepView"></div>
+      <details class="allsteps"><summary>Danh sách tất cả các bước</summary><ol id="stepList"></ol></details>
+    </section>
+
+    <section class="pane" id="pane-funcs" hidden>
+      <div id="funcs"></div>
+    </section>
+
+    <details class="notes"><summary>Lưu ý</summary><ul id="notes"></ul></details>
+  </main>
+
+  <div id="pop" hidden></div>
+
+  <script src="src/parser.js"></script>
+  <script src="src/docs.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>

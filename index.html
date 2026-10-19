@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formula Explainer</title>
+  <link rel="icon" href="assets/icon-32.png" />
+  <style>
+    :root { --g: #1e6b41; --ink: #1f2328; --muted: #6b7280; --line: #e3e6e8; --bg: #fff; --bg2: #f6f8f7; }
+    @media (prefers-color-scheme: dark) { :root { --ink: #e6e8ea; --muted: #9aa4ad; --line: #3a3f44; --bg: #1b1d20; --bg2: #24272b; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 15px/1.6 "Segoe UI", system-ui, sans-serif; color: var(--ink); background: var(--bg); }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 48px; }
+    header { background: var(--g); color: #fff; }
+    header .wrap { display: flex; align-items: center; gap: 14px; padding-top: 28px; padding-bottom: 28px; }
+    header img { width: 56px; height: 56px; }
+    h1 { margin: 0; font-size: 26px; }
+    header p { margin: 2px 0 0; opacity: .85; }
+    h2 { font-size: 18px; margin: 32px 0 8px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 8px; }
+    a.btn { display: inline-block; padding: 9px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; border: 1px solid var(--g); }
+    a.btn.main { background: var(--g); color: #fff; }
+    a.btn.alt { color: var(--g); background: transparent; }
+    @media (prefers-color-scheme: dark) { a.btn.alt { color: #7fd3a0; border-color: #7fd3a0; } }
+    ol { padding-left: 22px; }
+    li { margin: 4px 0; }
+    .card { border: 1px solid var(--line); border-radius: 8px; padding: 4px 18px 10px; margin: 12px 0; background: var(--bg2); }
+    .card h3 { margin: 12px 0 4px; font-size: 15px; }
+    code, kbd { font-family: Consolas, monospace; font-size: 13px; background: var(--bg2); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+    .muted { color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <img src="assets/icon-128.png" alt="" />
+      <div>
+        <h1>Formula Explainer</h1>
+        <p>Add-in Excel mô phỏng từng bước cách công thức được tính – giải thích từng hàm, từng tham số bằng tiếng Việt.</p>
+      </div>
+    </div>
+  </header>
+  <div class="wrap">
+    <div class="btns">
+      <a class="btn main" href="install/cai-dat-windows.bat" download>Tải bộ cài cho Windows</a>
+      <a class="btn alt" href="manifest.xml" download="manifest.xml">Tải manifest.xml</a>
+      <a class="btn alt" href="demo/">Xem demo trên trình duyệt</a>
+    </div>
+    <p class="muted">Không cần cài phần mềm nào khác. Add-in chạy trong khung bên phải Excel, giống Excel Labs.</p>
+
+    <h2>Cài đặt</h2>
+    <div class="card">
+      <h3>Cách 1 – Excel trên Windows (Microsoft 365 / 2021+)</h3>
+      <ol>
+        <li>Bấm <b>Tải bộ cài cho Windows</b>, chạy file <code>cai-dat-windows.bat</code>. Nếu Windows cảnh báo, chọn <i>More info › Run anyway</i>.</li>
+        <li>Đóng và mở lại Excel.</li>
+        <li>Nút <b>Giải thích công thức</b> xuất hiện ở cuối tab <b>Home</b>. Nếu chưa thấy: vào <b>Home › Add-ins › More Add-ins › My Add-ins</b>, mục <b>Developer Add-ins</b>, chọn <b>Formula Explainer</b>.</li>
+      </ol>
+      <p class="muted">Gỡ cài đặt: tải và chạy <a href="install/go-cai-dat-windows.bat" download>go-cai-dat-windows.bat</a>.</p>
+    </div>
+    <div class="card">
+      <h3>Cách 2 – Excel trên web (hoặc khi cách 1 không có mục Developer Add-ins)</h3>
+      <ol>
+        <li>Bấm <b>Tải manifest.xml</b> và lưu lại.</li>
+        <li>Trong Excel: <b>Home › Add-ins › More Add-ins › My Add-ins › Upload My Add-in</b>.</li>
+        <li>Chọn file <code>manifest.xml</code> vừa tải, bấm <b>Upload</b>.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Cách 3 – Triển khai cho cả công ty</h3>
+      <p>Quản trị Microsoft 365 vào <b>Admin center › Settings › Integrated apps › Upload custom apps</b>, dán đường dẫn
+        <code>https://namlt22.github.io/ExcelExplainer/manifest.xml</code> và chọn người dùng.</p>
+    </div>
+
+    <h2>Sử dụng</h2>
+    <ol>
+      <li>Chọn một ô có công thức, bấm <b>Home › Giải thích công thức</b>.</li>
+      <li>Tab <b>Các bước</b>: cây công thức, mỗi hàm có tên tham số, giá trị truyền vào và kết quả; bấm để mở/đóng, rê chuột vào tham chiếu để xem ô.</li>
+      <li>Tab <b>Từng bước</b>: giống <i>Evaluate Formula</i> – mỗi bước tô vàng phần đang tính, tô xanh giá trị vừa thay (phím <kbd>←</kbd> <kbd>→</kbd>).</li>
+      <li>Tab <b>Hàm</b>: mô tả đầy đủ các hàm dùng trong công thức.</li>
+      <li>Bật <b>Tự động</b> để khung tự cập nhật khi chọn ô có công thức khác.</li>
+    </ol>
+
+    <h2>Lưu ý</h2>
+    <ul>
+      <li>Để tính từng phần, add-in tạo một sheet ẩn tạm và xóa ngay sau đó – việc này làm mất lịch sử Undo (Ctrl+Z).</li>
+      <li>Workbook bị khóa cấu trúc (<i>Protect Workbook</i>) thì add-in không tạo được sheet tạm.</li>
+      <li>Cần Excel 2021, Microsoft 365 (Windows/Mac) hoặc Excel trên web.</li>
+    </ul>
+    <p class="muted">Mã nguồn: <a href="https://github.com/Namlt22/ExcelExplainer">github.com/Namlt22/ExcelExplainer</a></p>
+  </div>
+</body>
+</html>

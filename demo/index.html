@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formula Explainer – Demo</title>
+  <style>.demobar{background:#fff8c5;padding:6px 10px;font-size:12px;border-bottom:1px solid #eadb8a}.demobar select{max-width:100%;font:inherit;margin-top:4px;width:100%}body{max-width:420px;margin:0 auto;border-left:1px solid #e3e6e8;border-right:1px solid #e3e6e8;min-height:100vh}</style>
+    <link rel="stylesheet" href="../src/taskpane.css" />
+</head>
+<body>
+  <div class="demobar">
+    <b>DEMO</b> (Excel giả lập) – chọn ô:
+    <select id="demoSel"></select>
+  </div>
+  <header>
+    <div class="brand"><span class="logo">fx</span><span>Formula Explainer</span></div>
+    <div class="tools">
+      <label class="switch" title="Tự phân tích khi chọn ô có công thức khác">
+        <input type="checkbox" id="chkAuto" /><span class="slider"></span><span class="swlabel">Tự động</span>
+      </label>
+      <button id="btnRefresh" class="primary" title="Phân tích ô đang chọn">⟳ Phân tích</button>
+    </div>
+  </header>
+  <div id="status" hidden></div>
+  <div id="loader"><div></div></div>
+
+  <section id="empty">
+    <div class="emptyIcon">ƒx</div>
+    <p id="emptyMsg">Chọn một ô có công thức rồi bấm <b>⟳ Phân tích</b>.</p>
+  </section>
+
+  <main id="main" hidden>
+    <section class="cell">
+      <div class="cellhead"><span class="addr" id="cellAddr"></span></div>
+      <div class="formula expr" id="formula"></div>
+      <div class="result" id="result"></div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab on" data-tab="tree">Các bước</button>
+      <button class="tab" data-tab="seq">Từng bước</button>
+      <button class="tab" data-tab="funcs">Hàm</button>
+    </nav>
+
+    <section class="pane" id="pane-tree">
+      <div class="panetools">
+        <span class="hint">Bấm vào dòng để mở/đóng · rê chuột vào tham chiếu để xem ô</span>
+        <span><button class="link" id="btnExpand">Mở hết</button> · <button class="link" id="btnCollapse">Thu gọn</button></span>
+      </div>
+      <div id="tree"></div>
+    </section>
+
+    <section class="pane" id="pane-seq" hidden>
+      <div class="seqnav">
+        <button id="btnFirst" title="Bước đầu">⏮</button>
+        <button id="btnPrev" title="Bước trước (←)">◀</button>
+        <span id="stepNo"></span>
+        <button id="btnNext" title="Bước sau (→)">▶</button>
+        <button id="btnLast" title="Bước cuối">⏭</button>
+      </div>
+      <div id="stepView"></div>
+      <details class="allsteps"><summary>Danh sách tất cả các bước</summary><ol id="stepList"></ol></details>
+    </section>
+
+    <section class="pane" id="pane-funcs" hidden>
+      <div id="funcs"></div>
+    </section>
+
+    <details class="notes"><summary>Lưu ý</summary><ul id="notes"></ul></details>
+  </main>
+
+  <div id="pop" hidden></div>
+
+  <script src="../src/parser.js"></script>
+  <script src="fake-excel.js"></script>
+  <script>
+    const SHEETS = {
+      Sheet1: {
+        A1: "Mã", B1: "Tên", C1: "SL", D1: "Đơn giá",
+        A2: "SP01", B2: "Bút bi", C2: 120, D2: 5000,
+        A3: "SP02", B3: "Vở", C3: 45, D3: 12000,
+        A4: "SP03", B4: "Thước", C4: 8, D4: 7000,
+        F1: '=TEXTJOIN("-",TRUE,A2:B2)',
+        F2: '=IF(C2*D2>=500000,"Loại A",IFERROR(VLOOKUP(A2,Gia!$A$1:$B$3,2,FALSE),"Không có"))',
+        F3: '=IF(C4*D4>=500000,"Loại A",IFERROR(VLOOKUP(A4,Gia!$A$1:$B$3,2,FALSE),"Không có"))',
+        F4: "=LET(tong,SUM(C2:C4*D2:D4),sl,SUM(C2:C4),ROUND(tong/sl,0))",
+        F5: '=INDEX(B2:B4,MATCH("SP03",A2:A4,0))',
+        F6: '=SUMIFS(D2:D4,A2:A4,"SP02")*-2^2+50%',
+        F7: '=UPPER(LEFT(B3,1))&"-"&C3'
+      },
+      Gia: { A1: "SP01", B1: "Loại B", A2: "SP02", B2: "Loại C" }
+    };
+    const sel = document.getElementById("demoSel");
+    Object.keys(SHEETS.Sheet1).filter((k) => String(SHEETS.Sheet1[k])[0] === "=").forEach((k) => {
+      const o = document.createElement("option"); o.value = k; o.textContent = k + ":  " + SHEETS.Sheet1[k]; sel.appendChild(o);
+    });
+    makeFakeExcel(SHEETS, "Sheet1", () => sel.value, { autoReady: true });
+    sel.onchange = () => window.FXE_TEST.run(true);
+  </script>
+  <script src="../src/docs.js"></script>
+  <script src="../src/app.js"></script>
+</body>
+</html>

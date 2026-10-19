@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+  <Id>3f6ef35b-24e8-407e-a373-ee5188e99cef</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Namlt22</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Formula Explainer"/>
+  <Description DefaultValue="Mô phỏng từng bước cách công thức Excel được tính, giải thích từng hàm và tham số (tiếng Việt)."/>
+  <IconUrl DefaultValue="https://namlt22.github.io/ExcelExplainer/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://namlt22.github.io/ExcelExplainer/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://github.com/Namlt22/ExcelExplainer"/>
+  <AppDomains>
+    <AppDomain>https://namlt22.github.io</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Workbook"/>
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.9">
+      <Set Name="ExcelApi" MinVersion="1.9"/>
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://namlt22.github.io/ExcelExplainer/taskpane.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="FXE.Group">
+                <Label resid="Group.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16"/>
+                  <bt:Image size="32" resid="Icon.32"/>
+                  <bt:Image size="80" resid="Icon.80"/>
+                </Icon>
+                <Control xsi:type="Button" id="FXE.OpenPane">
+                  <Label resid="Button.Label"/>
+                  <Supertip>
+                    <Title resid="Button.Label"/>
+                    <Description resid="Button.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16"/>
+                    <bt:Image size="32" resid="Icon.32"/>
+                    <bt:Image size="80" resid="Icon.80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>FXEPane</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://namlt22.github.io/ExcelExplainer/assets/icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://namlt22.github.io/ExcelExplainer/assets/icon-32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://namlt22.github.io/ExcelExplainer/assets/icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://github.com/Namlt22/ExcelExplainer"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://namlt22.github.io/ExcelExplainer/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://namlt22.github.io/ExcelExplainer/taskpane.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Formula Explainer đã sẵn sàng"/>
+        <bt:String id="Group.Label" DefaultValue="Formula Explainer"/>
+        <bt:String id="Button.Label" DefaultValue="Giải thích công thức"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Chọn một ô có công thức rồi bấm Home › Giải thích công thức."/>
+        <bt:String id="Button.Tooltip" DefaultValue="Mở khung mô phỏng từng bước và giải thích hàm, tham số của công thức trong ô đang chọn."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
